@@ -1,10 +1,9 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -14,6 +13,7 @@ import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
 import useSearchFilteredEvents from "./hooks/useEventSearchFilter";
 import Search from "./components/Search";
+import { groupBy } from "lodash";
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -30,6 +30,8 @@ export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
   const { onChangeHadler, title } = useEvents();
   const [filteredEvents] = useSearchFilteredEvents(title);
+
+  const grouppedEventsByDate = groupBy(filteredEvents, "date");
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -47,7 +49,9 @@ export default function App() {
           </Box>
         </Toolbar>
       </AppBar>
-      <EventList events={filteredEvents} />
+      <EventList
+        grouppedEventsByDate={grouppedEventsByDate ? grouppedEventsByDate : {}}
+      />
       <Wrapper>
         <Drawer
           anchor="right"
