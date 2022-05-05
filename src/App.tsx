@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { data } = useEvents();
+  const { events } = useEvents();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

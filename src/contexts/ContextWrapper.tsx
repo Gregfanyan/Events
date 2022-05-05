@@ -1,14 +1,14 @@
 import React, { createContext, useContext, ReactNode } from "react";
 import { useApiRequest } from "../hooks/useApiRequest";
-
-type EventProps = {
-  data: any;
+import { eventProps } from "../types/events.types";
+type EventsContextProps = {
+  events: eventProps[];
   isFetching: boolean;
   isLoading: boolean;
 };
 
-const EventsContextDefaultValues: EventProps = {
-  data: null,
+const EventsContextDefaultValues: EventsContextProps = {
+  events: null as any,
   isFetching: null as any,
   isLoading: null as any,
 };
@@ -17,7 +17,7 @@ type Props = {
   children: ReactNode;
 };
 
-const EventsContext = createContext<EventProps>(
+const EventsContext = createContext<EventsContextProps>(
   EventsContextDefaultValues
 );
 
@@ -27,10 +27,10 @@ export function useEvents() {
 
 const ContextWrapper = ({ children }: Props) => {
   const url = process.env.REACT_APP_BASE_API_URL;
-  const { data, isLoading, isFetching } = useApiRequest(url as string);
+  const { data: events, isLoading, isFetching } = useApiRequest(url as string);
 
   return (
-    <EventsContext.Provider value={{ data, isFetching, isLoading }}>
+    <EventsContext.Provider value={{ events, isFetching, isLoading }}>
       {children}
     </EventsContext.Provider>
   );
