@@ -13,6 +13,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Cart from "./components/Cart";
 import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
+import useSearchFilteredEvents from "./hooks/useEventSearchFilter";
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -67,7 +68,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { events } = useEvents();
+  const { onChangeHadler, title } = useEvents();
+  const [filteredEvents] = useSearchFilteredEvents(title);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -79,6 +81,8 @@ export default function App() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={onChangeHadler}
+              value={title}
             />
           </Search>
           <IconButton sx={{ zIndex: 100, marginRight: "30px" }}>
@@ -93,7 +97,7 @@ export default function App() {
           </Box>
         </Toolbar>
       </AppBar>
-      <EventList events={events} />
+      <EventList events={filteredEvents} />
       <Wrapper>
         <Drawer
           anchor="right"
