@@ -11,7 +11,7 @@ import Drawer from "@mui/material/Drawer";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Cart from "./components/Cart";
-
+import { useEvents } from "./contexts/ContextWrapper";
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-
+  const { events } = useEvents();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
