@@ -12,6 +12,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Cart from "./components/Cart";
 import { useEvents } from "./contexts/ContextWrapper";
+import EventList from "./components/EventList";
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -92,6 +93,7 @@ export default function App() {
           </Box>
         </Toolbar>
       </AppBar>
+      <EventList events={events} />
       <Wrapper>
         <Drawer
           anchor="right"

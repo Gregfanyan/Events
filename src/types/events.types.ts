@@ -18,6 +18,7 @@ type artistProps = {
 };
 
 export type eventProps = {
+  _id: string;
   title: string;
   flyerFront: string;
   attending: number;
