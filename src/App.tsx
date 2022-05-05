@@ -28,7 +28,7 @@ const StyledButton = styled(IconButton)`
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { onChangeHadler, title } = useEvents();
+  const { onChangeHadler, title, sortButtonHandleClick } = useEvents();
   const [filteredEvents] = useSearchFilteredEvents(title);
 
   const grouppedEventsByDate = groupBy(filteredEvents, "date");
@@ -37,7 +37,10 @@ export default function App() {
       <AppBar position="static">
         <Toolbar>
           <Search onChangeHadler={onChangeHadler} title={title} />
-          <IconButton sx={{ zIndex: 100, marginRight: "30px" }}>
+          <IconButton
+            sx={{ zIndex: 100, marginRight: "30px" }}
+            onClick={sortButtonHandleClick}
+          >
             <FilterAltIcon sx={{ color: "#fff" }} />
           </IconButton>
           <Box sx={{ display: { xs: "flex" } }}>

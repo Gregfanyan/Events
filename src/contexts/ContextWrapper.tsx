@@ -8,6 +8,9 @@ type EventsContextProps = {
   setTitle: Function;
   title: string;
   onChangeHadler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setFilter: Function;
+  filter: boolean;
+  sortButtonHandleClick: () => void;
 };
 
 const EventsContextDefaultValues: EventsContextProps = {
@@ -17,6 +20,9 @@ const EventsContextDefaultValues: EventsContextProps = {
   setTitle: Function,
   title: "",
   onChangeHadler: null as any,
+  setFilter: Function,
+  filter: null as any,
+  sortButtonHandleClick: null as any,
 };
 
 type Props = {
@@ -34,14 +40,29 @@ export function useEvents() {
 const url = process.env.REACT_APP_BASE_API_URL;
 const ContextWrapper = ({ children }: Props) => {
   const [title, setTitle] = useState<string>("");
+  const [filter, setFilter] = useState(false);
 
   const { data: events, isLoading, isFetching } = useApiRequest(url as string);
   const onChangeHadler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
+  const sortButtonHandleClick = () => {
+    setFilter(!filter);
+  };
   return (
     <EventsContext.Provider
-      value={{ events, isFetching, isLoading, title, setTitle, onChangeHadler }}
+      value={{
+        events,
+        isFetching,
+        isLoading,
+        title,
+        setTitle,
+        onChangeHadler,
+        filter,
+        setFilter,
+        sortButtonHandleClick,
+      }}
     >
       {children}
     </EventsContext.Provider>
