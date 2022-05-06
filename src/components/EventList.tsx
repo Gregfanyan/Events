@@ -11,6 +11,8 @@ type grouppedEventsByDateProps = {
 const EventList: FunctionComponent<{
   grouppedEventsByDate: grouppedEventsByDateProps | {};
 }> = ({ grouppedEventsByDate }) => {
+
+
   return (
     <Box>
       <Box
@@ -26,6 +28,7 @@ const EventList: FunctionComponent<{
       </Box>
       {Object.entries(grouppedEventsByDate).map(([date, events], i) => {
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
+
         return (
           <Box
             key={i}

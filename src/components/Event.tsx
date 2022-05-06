@@ -27,7 +27,6 @@ const Event: FunctionComponent<{
   return (
     <Box className="container">
       {map(events, (event) => {
-        console.log("event", event);
         const formattedStartDate =
           event.startTime &&
           format(new Date(event.startTime), "dd MM yyyy, HH:mm:ss");

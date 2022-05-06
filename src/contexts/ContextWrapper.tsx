@@ -1,6 +1,12 @@
+import { some, filter } from "lodash";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import { useApiRequest } from "../hooks/useApiRequest";
 import { eventProps } from "../types/events.types";
+
+type eventPropsWithItem = eventProps & {
+  amount: number;
+};
+
 type EventsContextProps = {
   events: eventProps[];
   isFetching: boolean;
@@ -55,24 +61,23 @@ const ContextWrapper = ({ children }: Props) => {
   const sortButtonHandleClick = () => {
     setFilter(!filter);
   };
-  const [cartItems, setCartItems] = useState<eventProps[]>([]);
-  const [cartItemsAmount, setCartItemsAmount] = useState<number>(0);
+  const [cartItems, setCartItems] = useState<eventPropsWithItem[]>([]);
 
-  const handleAddToCart = (clickedItem: eventProps) => {
-    setCartItems((prev: eventProps[]) => {
+  const handleAddToCart = (clickedItem: eventPropsWithItem) => {
+    setCartItems((prev: eventPropsWithItem[]) => {
       const isItemInCart = prev.find((item) => item._id === clickedItem._id);
 
       if (isItemInCart) {
         return prev.map((item) =>
           item._id === clickedItem._id
-            ? { ...item, amount: cartItemsAmount + 1 }
+            ? { ...item, amount: item.amount + 1 }
             : item
         );
       }
-      return [...prev, clickedItem];
+      return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
-  console.log("cartItems", cartItems);
+
   return (
     <EventsContext.Provider
       value={{

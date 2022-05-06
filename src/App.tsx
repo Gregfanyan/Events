@@ -13,7 +13,7 @@ import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
 import useSearchFilteredEvents from "./hooks/useEventSearchAndSortFilter";
 import Search from "./components/Search";
-import { groupBy } from "lodash";
+import { filter, groupBy, some } from "lodash";
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -28,10 +28,15 @@ const StyledButton = styled(IconButton)`
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { onChangeHadler, title, sortButtonHandleClick } = useEvents();
+  const { onChangeHadler, title, sortButtonHandleClick, cartItems } =
+    useEvents();
   const [filteredEvents] = useSearchFilteredEvents(title);
 
-  const grouppedEventsByDate = groupBy(filteredEvents, "date");
+  const filteredEventWithoutCart = filter(filteredEvents, (e) => {
+    return !some(cartItems, (item) => e._id === item._id);
+  });
+
+  const grouppedEventsByDate = groupBy(filteredEventWithoutCart, "date");
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">

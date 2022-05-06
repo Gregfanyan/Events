@@ -1,23 +1,19 @@
 import { styled } from "@mui/material/styles";
 import { map } from "lodash";
-import React, { FunctionComponent } from "react";
-import { eventProps } from "../types/events.types";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Link from "@mui/material/Link";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Box from "@mui/material/Box";
 import { format } from "date-fns";
 import "../card.css";
 import { useEvents } from "../contexts/ContextWrapper";
+
 const Wrapper = styled(Box)`
   font-family: Arial, Helvetica, sans-serif;
   width: 500px;
@@ -37,7 +33,6 @@ const Cart = () => {
         }}
       >
         {map(cartItems, (event) => {
-          console.log("event", event);
           const formattedStartDate =
             event.startTime &&
             format(new Date(event.startTime), "dd MM yyyy, HH:mm:ss");
