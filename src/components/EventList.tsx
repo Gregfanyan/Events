@@ -14,16 +14,11 @@ const EventList: FunctionComponent<{
 }> = ({ grouppedEventsByDate }) => {
   return (
     <Box>
-      {Object.entries(grouppedEventsByDate).map(([date, events]) => {
+      {Object.entries(grouppedEventsByDate).map(([date, events], i) => {
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
         return (
-          <div key={date}>
-            <div>{formattedDate}</div>
-            <ul>
-              {map(events, (item, i) => (
-                <li key={i}>{item.venue.name} </li>
-              ))}
-            </ul>
+          <div key={i}>
+            <Event date={formattedDate} events={events} />
           </div>
         );
       })}
