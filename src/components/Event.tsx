@@ -11,10 +11,12 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Link from "@mui/material/Link";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Box from "@mui/material/Box";
+import { format } from "date-fns";
+import "../card.css";
 
 const Event: FunctionComponent<{
   date: string;
@@ -23,8 +25,14 @@ const Event: FunctionComponent<{
   };
 }> = ({ date, events }) => {
   return (
-    <div>
+    <Box className="container">
       {map(events, (event) => {
+        const formattedStartDate =
+          event.startTime &&
+          format(new Date(event.startTime), "EEE MMM dd yyyy");
+        const formattedEndDate =
+          event.endTime && format(new Date(event.endTime), "EEE MMM dd yyyy");
+
         return (
           <Card sx={{ maxWidth: 345 }} key={event._id}>
             <CardHeader
@@ -33,7 +41,18 @@ const Event: FunctionComponent<{
                   R
                 </Avatar>
               }
-              title={event.title}
+              title={
+                <Typography
+                  sx={{
+                    height: "45px",
+                    overflow: "auto",
+                    fontWeight: "bold",
+                  }}
+                  variant="caption"
+                >
+                  {event.title}
+                </Typography>
+              }
             />
             <CardMedia
               component="img"
@@ -41,39 +60,45 @@ const Event: FunctionComponent<{
               image={event.flyerFront}
               alt="Paella dish"
             />
-            <CardContent sx={{ display: "flex" }}>
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                underline="hover"
-                href={event.venue.direction}
-                sx={{ cursor: "pointer" }}
-                color="inherit"
-              >
-                <LocationOnIcon fontSize="small" />
-              </Link>
-              <Typography variant="body2" color="text.secondary">
-                {event.venue.name}
+            <CardContent sx={{ display: "flex", flexDirection: "column" }}>
+              <Box sx={{ display: "flex" }}>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="hover"
+                  href={event.venue.direction}
+                  sx={{
+                    cursor: "pointer",
+                    objectFit: "cover",
+                  }}
+                  color="inherit"
+                >
+                  <LocationOnIcon color="info" fontSize="small" />
+                </Link>
+                <Typography variant="body2">
+                  <>{event.venue.name}</>
+                </Typography>
+              </Box>
+              <Typography variant="caption" sx={{ alignSelf: "self-start" }}>
+                <>
+                  <>Starts: {formattedStartDate}</>
+                </>
+              </Typography>
+              <Typography variant="caption" sx={{ alignSelf: "self-start" }}>
+                <>
+                  <>Ends: {formattedEndDate}</>
+                </>
               </Typography>
             </CardContent>
-            <CardContent sx={{ display: "flex" }}>
-              <LocationOnIcon fontSize="small" />
-              <Typography variant="body2" color="text.secondary">
-                {event.venue.name}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
+            <CardActions disableSpacing sx={{ justifyContent: "end" }}>
+              <IconButton aria-label="add to favorites" color="info">
+                <AddCircleIcon />
               </IconButton>
             </CardActions>
           </Card>
         );
       })}
-    </div>
+    </Box>
   );
 };
 
