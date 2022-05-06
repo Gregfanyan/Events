@@ -3,7 +3,7 @@ import React, { createContext, useContext, ReactNode, useState } from "react";
 import { useApiRequest } from "../hooks/useApiRequest";
 import { eventProps } from "../types/events.types";
 
-type eventPropsWithItem = eventProps & {
+type eventPropsWithAmount = eventProps & {
   amount: number;
 };
 
@@ -20,6 +20,7 @@ type EventsContextProps = {
   handleAddToCart: (clickedItem: any) => void;
   setCartItems: Function;
   cartItems: eventProps[];
+  getTotalItems: () => number;
 };
 
 const EventsContextDefaultValues: EventsContextProps = {
@@ -35,6 +36,7 @@ const EventsContextDefaultValues: EventsContextProps = {
   handleAddToCart: null as any,
   setCartItems: null as any,
   cartItems: null as any,
+  getTotalItems: null as any,
 };
 
 type Props = {
@@ -61,10 +63,10 @@ const ContextWrapper = ({ children }: Props) => {
   const sortButtonHandleClick = () => {
     setFilter(!filter);
   };
-  const [cartItems, setCartItems] = useState<eventPropsWithItem[]>([]);
+  const [cartItems, setCartItems] = useState<eventPropsWithAmount[]>([]);
 
-  const handleAddToCart = (clickedItem: eventPropsWithItem) => {
-    setCartItems((prev: eventPropsWithItem[]) => {
+  const handleAddToCart = (clickedItem: eventPropsWithAmount) => {
+    setCartItems((prev: eventPropsWithAmount[]) => {
       const isItemInCart = prev.find((item) => item._id === clickedItem._id);
 
       if (isItemInCart) {
@@ -78,6 +80,8 @@ const ContextWrapper = ({ children }: Props) => {
     });
   };
 
+  const getTotalItems = () =>
+    cartItems.reduce((acc, item) => acc + item.amount, 0);
   return (
     <EventsContext.Provider
       value={{
@@ -93,6 +97,7 @@ const ContextWrapper = ({ children }: Props) => {
         handleAddToCart,
         setCartItems,
         cartItems,
+        getTotalItems,
       }}
     >
       {children}

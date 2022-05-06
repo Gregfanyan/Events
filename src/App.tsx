@@ -28,8 +28,13 @@ const StyledButton = styled(IconButton)`
 
 export default function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
-  const { onChangeHadler, title, sortButtonHandleClick, cartItems } =
-    useEvents();
+  const {
+    onChangeHadler,
+    title,
+    sortButtonHandleClick,
+    cartItems,
+    getTotalItems,
+  } = useEvents();
   const [filteredEvents] = useSearchFilteredEvents(title);
 
   const filteredEventWithoutCart = filter(filteredEvents, (e) => {
@@ -50,7 +55,7 @@ export default function App() {
           </IconButton>
           <Box sx={{ display: { xs: "flex" } }}>
             <StyledButton onClick={() => setCartOpen(true)}>
-              <Badge color="error">
+              <Badge badgeContent={getTotalItems()} color="error">
                 <AddShoppingCartIcon sx={{ color: "#fff" }} />
               </Badge>
             </StyledButton>

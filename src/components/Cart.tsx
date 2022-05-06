@@ -30,6 +30,7 @@ const Cart = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          gap: "20px 2px",
         }}
       >
         {map(cartItems, (event) => {
