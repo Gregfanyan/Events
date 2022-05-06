@@ -12,7 +12,7 @@ const EventList: FunctionComponent<{
   grouppedEventsByDate: grouppedEventsByDateProps | {};
 }> = ({ grouppedEventsByDate }) => {
   return (
-    <Box>
+    <Box sx={{ marginTop: "100px" }}>
       {Object.entries(grouppedEventsByDate).map(([date, events], i) => {
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
         return (

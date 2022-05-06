@@ -34,7 +34,7 @@ export default function App() {
   const grouppedEventsByDate = groupBy(filteredEvents, "date");
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Search onChangeHadler={onChangeHadler} title={title} />
           <IconButton
