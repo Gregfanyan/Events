@@ -12,20 +12,41 @@ const EventList: FunctionComponent<{
   grouppedEventsByDate: grouppedEventsByDateProps | {};
 }> = ({ grouppedEventsByDate }) => {
   return (
-    <Box sx={{ marginTop: "100px" }}>
+    <Box>
+      <Box
+        sx={{
+          marginTop: "100px",
+          display: "flex",
+          mx: "260px",
+          fontWeight: "900",
+          fontSize: "30px",
+        }}
+      >
+        Public Events
+      </Box>
       {Object.entries(grouppedEventsByDate).map(([date, events], i) => {
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
         return (
           <Box
             sx={{
-              border: "1px solid #ccc",
               borderRadius: "5px",
               padding: "10px",
               mx: "250px",
               my: "30px",
+              position: "relative",
             }}
           >
-            <Box sx={{ color: "#0288D1", fontWeight: "900", display: "flex" }}>
+            <Box
+              sx={{
+                color: "#0288D1",
+                fontWeight: "900",
+                display: "flex",
+                position: "sticky",
+                top: 60,
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+                height: "40px",
+              }}
+            >
               {formattedDate}
             </Box>
 
