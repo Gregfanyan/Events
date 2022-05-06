@@ -16,16 +16,18 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Box from "@mui/material/Box";
 import { format } from "date-fns";
 import "../card.css";
+import { useEvents } from "../contexts/ContextWrapper";
 
 const Event: FunctionComponent<{
-  date: string;
   events: {
     [key: string]: eventProps;
   };
-}> = ({ date, events }) => {
+}> = ({ events }) => {
+  const { handleAddToCart } = useEvents();
   return (
     <Box className="container">
       {map(events, (event) => {
+        console.log("event", event);
         const formattedStartDate =
           event.startTime &&
           format(new Date(event.startTime), "dd MM yyyy, HH:mm:ss");
@@ -93,7 +95,11 @@ const Event: FunctionComponent<{
                 </>
               </Typography>
             </CardContent>
-            <CardActions disableSpacing sx={{ justifyContent: "end" }}>
+            <CardActions
+              disableSpacing
+              sx={{ justifyContent: "end" }}
+              onClick={() => handleAddToCart(event)}
+            >
               <IconButton aria-label="add to favorites" color="info">
                 <AddCircleIcon />
               </IconButton>

@@ -28,6 +28,7 @@ const EventList: FunctionComponent<{
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
         return (
           <Box
+            key={i}
             sx={{
               borderRadius: "5px",
               padding: "10px",
@@ -51,13 +52,12 @@ const EventList: FunctionComponent<{
             </Box>
 
             <Box
-              key={i}
               sx={{
                 paddingTop: "50px",
               }}
             >
               <Box>
-                <Event date={formattedDate} events={events} />
+                <Event events={events} />
               </Box>
             </Box>
           </Box>
