@@ -57,7 +57,10 @@ const Event: FunctionComponent<{
             <CardMedia
               component="img"
               height="194"
-              image={event.flyerFront}
+              image={
+                event.flyerFront ??
+                "https://static.ra.co/images/events/flyer/2021/10/uk-1013-1471470-front.jpg?dateUpdated=1633977911437"
+              }
               alt="Paella dish"
             />
             <CardContent sx={{ display: "flex", flexDirection: "column" }}>
