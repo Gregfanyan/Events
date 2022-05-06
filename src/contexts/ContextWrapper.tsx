@@ -1,4 +1,3 @@
-import { some, filter } from "lodash";
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import { useApiRequest } from "../hooks/useApiRequest";
 import { eventProps } from "../types/events.types";
