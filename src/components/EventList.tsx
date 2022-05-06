@@ -25,7 +25,9 @@ const EventList: FunctionComponent<{
               my: "30px",
             }}
           >
-            {formattedDate}
+            <Box sx={{ color: "#0288D1", fontWeight: "900", display: "flex" }}>
+              {formattedDate}
+            </Box>
 
             <Box
               key={i}

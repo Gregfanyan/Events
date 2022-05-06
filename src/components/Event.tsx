@@ -29,9 +29,10 @@ const Event: FunctionComponent<{
       {map(events, (event) => {
         const formattedStartDate =
           event.startTime &&
-          format(new Date(event.startTime), "EEE MMM dd yyyy");
+          format(new Date(event.startTime), "dd MM yyyy, HH:mm:ss");
         const formattedEndDate =
-          event.endTime && format(new Date(event.endTime), "EEE MMM dd yyyy");
+          event.endTime &&
+          format(new Date(event.endTime), "dd MM yyyy, HH:mm:ss");
 
         return (
           <Card sx={{ maxWidth: 345 }} key={event._id}>
