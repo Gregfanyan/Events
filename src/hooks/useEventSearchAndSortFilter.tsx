@@ -1,7 +1,7 @@
 import { useEvents } from "../contexts/ContextWrapper";
 import { eventProps } from "../types/events.types";
 import { useMemo } from "react";
-import { sortBy } from "lodash";
+import { orderBy } from "lodash";
 
 const useSearchFilteredEvents = (title: string) => {
   const { events, filter } = useEvents();
@@ -12,9 +12,12 @@ const useSearchFilteredEvents = (title: string) => {
       [...events].filter((event: eventProps) =>
         event.title.toLowerCase().includes(title.toLowerCase())
       );
-    const sortByDate = sortBy(filteredEvents, (event) => {
-      return filter && event.date;
-    });
+
+    let sortByDate = orderBy(
+      filteredEvents,
+      ["date"],
+      filter ? ["desc"] : ["asc"]
+    );
     return sortByDate;
   }, [events, title, filter]);
   return [filteredEvents] as const;
