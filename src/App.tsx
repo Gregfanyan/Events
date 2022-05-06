@@ -11,7 +11,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Cart from "./components/Cart";
 import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
-import useSearchFilteredEvents from "./hooks/useEventSearchFilter";
+import useSearchFilteredEvents from "./hooks/useEventSearchAndSortFilter";
 import Search from "./components/Search";
 import { groupBy } from "lodash";
 const Wrapper = styled(Box)`
