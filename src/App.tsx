@@ -13,10 +13,9 @@ import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
 import useFilteredAndSortedEvents from "./hooks/useEventSearchAndSortFilter";
 import Search from "./components/Search";
-import { filter, groupBy, map, some } from "lodash";
+import { filter, groupBy, some } from "lodash";
 import UKFlagIcon from "./components/UKFlagIcon";
 import { Typography } from "@mui/material";
-import { format } from "date-fns";
 import { dateFormat } from "./hooks/useDateFormat";
 
 const Wrapper = styled(Box)`
@@ -39,6 +38,7 @@ export default function App() {
     sortButtonHandleClick,
     cartItems,
     getTotalItems,
+    isLoading,
   } = useEvents();
   const [filteredEvents] = useFilteredAndSortedEvents(title);
 
@@ -47,6 +47,12 @@ export default function App() {
   });
 
   const grouppedEventsByDate = groupBy(filteredEventWithoutCart, "date");
+
+  const eventDateArr = Object.keys(grouppedEventsByDate).map((date) =>
+    Date.parse(date)
+  );
+  const maxDate = new Date(Math.max(...eventDateArr));
+  const minDate = new Date(Math.min(...eventDateArr));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -108,7 +114,17 @@ export default function App() {
               gap: "5px",
               alignItems: "center",
             }}
-          ></Box>
+          >
+            {!isLoading ? (
+              <Typography variant="body2" fontWeight="600">
+                <>
+                  {dateFormat(minDate)}- {dateFormat(maxDate)}
+                </>
+              </Typography>
+            ) : (
+              ""
+            )}
+          </Box>
         </Box>
         <Box
           sx={{
