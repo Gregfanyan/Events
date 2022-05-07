@@ -11,9 +11,13 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Cart from "./components/Cart";
 import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
-import useSearchFilteredEvents from "./hooks/useEventSearchAndSortFilter";
+import useFilteredAndSortedEvents from "./hooks/useEventSearchAndSortFilter";
 import Search from "./components/Search";
 import { filter, groupBy, some } from "lodash";
+import UKFlagIcon from "./components/UKFlagIcon";
+import { Typography } from "@mui/material";
+import { dateFormat } from "./hooks/useDateFormat";
+
 const Wrapper = styled(Box)`
   margin: 40px;
 `;
@@ -34,14 +38,22 @@ export default function App() {
     sortButtonHandleClick,
     cartItems,
     getTotalItems,
+    isLoading,
   } = useEvents();
-  const [filteredEvents] = useSearchFilteredEvents(title);
+  const [filteredEvents] = useFilteredAndSortedEvents(title);
 
   const filteredEventWithoutCart = filter(filteredEvents, (e) => {
     return !some(cartItems, (item) => e._id === item._id);
   });
 
   const grouppedEventsByDate = groupBy(filteredEventWithoutCart, "date");
+
+  const eventDateArr = Object.keys(grouppedEventsByDate).map((date) =>
+    Date.parse(date)
+  );
+  const maxDate = new Date(Math.max(...eventDateArr));
+  const minDate = new Date(Math.min(...eventDateArr));
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -62,9 +74,76 @@ export default function App() {
           </Box>
         </Toolbar>
       </AppBar>
-      <EventList
-        grouppedEventsByDate={grouppedEventsByDate ? grouppedEventsByDate : {}}
-      />
+      <Box
+        sx={{
+          ml: "382px",
+          marginTop: "75px",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: "10px", height: "26px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              borderRadius: "50px",
+              border: "1px solid #ccc",
+              width: "100px",
+              justifyContent: "center",
+              gap: "5px",
+              textTransform: "uppercase",
+              alignItems: "center",
+            }}
+          >
+            <UKFlagIcon
+              width={22}
+              style={{
+                borderRadius: "50px",
+                height: "auto",
+              }}
+            />
+            <Typography variant="body2" fontWeight="600">
+              London
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              borderRadius: "50px",
+              border: "1px solid #ccc",
+              width: "180px",
+              justifyContent: "center",
+              gap: "5px",
+              alignItems: "center",
+            }}
+          >
+            {!isLoading ? (
+              <Typography variant="body2" fontWeight="600">
+                <>
+                  {dateFormat(minDate)}- {dateFormat(maxDate)}
+                </>
+              </Typography>
+            ) : (
+              ""
+            )}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            marginTop: "50px",
+            display: "flex",
+            fontWeight: "900",
+            fontSize: "30px",
+          }}
+        >
+          Public Events
+        </Box>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <EventList
+          grouppedEventsByDate={
+            grouppedEventsByDate ? grouppedEventsByDate : {}
+          }
+        />
+      </Box>
       <Wrapper>
         <Drawer
           anchor="right"

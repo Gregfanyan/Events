@@ -43,21 +43,23 @@ const Event: FunctionComponent<{
                 </Avatar>
               }
               title={
-                <Typography
-                  sx={{
-                    height: "45px",
-                    overflow: "auto",
-                    fontWeight: "bold",
-                  }}
-                  variant="caption"
-                >
-                  {event.title}
-                </Typography>
+                <Box sx={{ height: "40px", overflow: "hidden" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "bold",
+                      maxWidth: "200px",
+                      textOverflow: "ellipsis",
+                    }}
+                    variant="caption"
+                  >
+                    {event.title}
+                  </Typography>
+                </Box>
               }
             />
             <CardMedia
               component="img"
-              height="194"
+              height="350"
               image={
                 event.flyerFront ??
                 "https://static.ra.co/images/events/flyer/2021/10/uk-1013-1471470-front.jpg?dateUpdated=1633977911437"

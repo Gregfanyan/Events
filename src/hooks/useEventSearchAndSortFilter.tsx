@@ -3,7 +3,7 @@ import { eventProps } from "../types/events.types";
 import { useMemo } from "react";
 import { orderBy } from "lodash";
 
-const useSearchFilteredEvents = (title: string) => {
+const useFilteredAndSortedEvents = (title: string) => {
   const { events, filter } = useEvents();
 
   const filteredEvents = useMemo(() => {
@@ -23,4 +23,4 @@ const useSearchFilteredEvents = (title: string) => {
   return [filteredEvents] as const;
 };
 
-export default useSearchFilteredEvents;
+export default useFilteredAndSortedEvents;
