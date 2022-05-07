@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Event from "./Event";
 import { eventProps } from "../types/events.types";
 import { format } from "date-fns";
-
 type grouppedEventsByDateProps = {
   grouppedEventsByDate: { [key: string]: eventProps };
 };
@@ -11,21 +10,9 @@ type grouppedEventsByDateProps = {
 const EventList: FunctionComponent<{
   grouppedEventsByDate: grouppedEventsByDateProps | {};
 }> = ({ grouppedEventsByDate }) => {
-
-
   return (
     <Box>
-      <Box
-        sx={{
-          marginTop: "100px",
-          display: "flex",
-          mx: "260px",
-          fontWeight: "900",
-          fontSize: "30px",
-        }}
-      >
-        Public Events
-      </Box>
+     
       {Object.entries(grouppedEventsByDate).map(([date, events], i) => {
         const formattedDate = format(new Date(date), "EEE MMM dd yyyy");
 
