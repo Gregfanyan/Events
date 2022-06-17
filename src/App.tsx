@@ -12,7 +12,7 @@ import Cart from "./components/Cart";
 import { useEvents } from "./contexts/ContextWrapper";
 import EventList from "./components/EventList";
 import useFilteredAndSortedEvents from "./hooks/useEventSearchAndSortFilter";
-import Search from "./components/Search";
+import Search from "./components/Search/Search";
 import { filter, groupBy, some } from "lodash";
 import UKFlagIcon from "./components/UKFlagIcon";
 import { Typography } from "@mui/material";
