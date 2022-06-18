@@ -27,5 +27,6 @@ describe("add items to basket", () => {
       selector: "button",
     });
     await waitFor(() => expect(iconBtn).toBeTruthy());
+    await waitFor(() => expect(iconBtn).toHaveLength(181));
   });
 });

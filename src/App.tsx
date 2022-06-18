@@ -47,13 +47,11 @@ export default function App() {
   });
 
   const grouppedEventsByDate = groupBy(filteredEventWithoutCart, "date");
-
   const eventDateArr = Object.keys(grouppedEventsByDate).map((date) =>
     Date.parse(date)
   );
   const maxDate = new Date(Math.max(...eventDateArr));
   const minDate = new Date(Math.min(...eventDateArr));
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
