@@ -41,7 +41,6 @@ export default function App() {
     isLoading,
   } = useEvents();
   const [filteredEvents] = useFilteredAndSortedEvents(title);
-
   const filteredEventWithoutCart = filter(filteredEvents, (e) => {
     return !some(cartItems, (item) => e._id === item._id);
   });

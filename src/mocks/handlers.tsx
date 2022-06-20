@@ -11,8 +11,9 @@ export const handlers = [
             _id: "1",
             title: "Scoop 1",
             flyerFront: "interstelar.jpg",
-            startTime: "2021-10-13T00:00:00.000",
-            endTime: "2021-10-17T06:00:00.000",
+            startTime: "24 September 2022 15:30 UTC",
+            endTime: "25 September 2022 15:30 UTC",
+            date: "2021-10-13T00:00:00.000",
             venue: {
               name: "venue 1",
               direction: "street 1",
@@ -22,8 +23,9 @@ export const handlers = [
             _id: "2",
             title: "Scoop 2",
             flyerFront: "interstelars.jpg",
-            startTime: "2021-10-13T00:00:00.000",
-            endTime: "2021-10-14T23:00:00.000",
+            startTime: "26 September 2022 15:30 UTC",
+            endTime: "27 September 2022 15:30 UTC",
+            date: "2021-10-14T00:00:00.000",
             venue: {
               name: "venue 2",
               direction: "street 2",
