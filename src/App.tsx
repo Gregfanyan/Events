@@ -64,7 +64,11 @@ export default function App() {
           </IconButton>
           <Box sx={{ display: { xs: "flex" } }}>
             <StyledButton onClick={() => setCartOpen(true)}>
-              <Badge badgeContent={getTotalItems()} color="error">
+              <Badge
+                badgeContent={getTotalItems()}
+                color="error"
+                data-testid="badge"
+              >
                 <AddShoppingCartIcon sx={{ color: "#fff" }} />
               </Badge>
             </StyledButton>
